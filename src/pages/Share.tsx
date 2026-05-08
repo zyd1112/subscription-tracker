@@ -205,7 +205,21 @@ export default function Share() {
               </ul>
               
               <div className="bg-gray-50 p-4 rounded-xl mb-4 border border-gray-200 text-center">
-                <img src="/pay-qrcode.png" alt="微信收款码" className="w-32 h-32 mx-auto mb-2 rounded-lg shadow-sm" />
+                {/* 增加一个固定的高度，防止图片加载失败时塌陷，同时添加 onError 处理 */}
+                <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden border border-gray-100">
+                  <img 
+                    src="/pay-qrcode.png" 
+                    alt="微信收款码" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // 图片加载失败时显示占位文字
+                      e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.parentElement) {
+                        e.currentTarget.parentElement.innerHTML = '<span class="text-xs text-gray-400">请将收款码保存为<br/>public/pay-qrcode.png</span>';
+                      }
+                    }}
+                  />
+                </div>
                 <p className="text-xs text-gray-500">扫码支付 ¥29 后，添加微信获取激活码</p>
               </div>
 

@@ -49,7 +49,7 @@ export default function Share() {
 
       const dataUrl = await htmlToImage.toPng(posterRef.current, {
         quality: highRes ? 1.0 : 0.8,
-        pixelRatio: highRes ? 3 : 1,
+        pixelRatio: highRes ? 3 : 2, // 提升普通海报的清晰度，高清使用更高的3倍率
       });
 
       // 恢复水印显示
@@ -210,7 +210,7 @@ export default function Share() {
                   <img 
                     src="/pay-qrcode.png" 
                     alt="微信收款码" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-1"
                     onError={(e) => {
                       // 图片加载失败时显示占位文字
                       e.currentTarget.style.display = 'none';
